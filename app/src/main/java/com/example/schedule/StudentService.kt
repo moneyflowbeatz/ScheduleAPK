@@ -7,8 +7,8 @@ import retrofit2.http.Header
 
 
 interface StudentService {
-    @GET("Student")
-    suspend fun getStudent(@Header("Authorization") token: String): Response<Student>
+    @GET("/Student")
+    suspend fun getStudent(@Header("Authorization") token: String): Response<List<Student>>
     @GET("Student")
     suspend fun getStudentInfo(
         @Header("Authorization") token: String

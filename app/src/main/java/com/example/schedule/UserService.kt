@@ -6,6 +6,7 @@ import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.Query
 import retrofit2.Response
+import javax.security.auth.Subject
 
 interface UserService {
 
@@ -42,14 +43,19 @@ interface UserService {
         val time: String
     )
 
-    @GET("Groups")
-    suspend fun getGroups(): Response<List<Group>>
 
-    @GET("Subjects")
-    suspend fun getSubjects(): Response<List<Subject>>
 
-    @GET("Teachers")
-    suspend fun getTeachers(): Response<List<Teacher>>
+    @GET("/Student")
+    suspend fun getStudent(@Header("Authorization") token: String): Response<Student>
+
+    @GET("/Teacher")
+    suspend fun getTeacher(@Header("Authorization") token: String): Response<Teacher>
+
+    @GET("/Group")
+    suspend fun getGroup(@Header("Authorization") token: String): Response<Group>
+
+    @GET("Student")
+    suspend fun getStudents(@Header("Authorization") token: String): Response<Students>
 
 
 }

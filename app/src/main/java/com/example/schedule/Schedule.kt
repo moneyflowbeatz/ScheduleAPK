@@ -12,7 +12,11 @@ data class Schedule(
     val scheduleEnd: String
 )
 
+data class Teacher(
+    val fio: String,
+    val classroom: String,
+    val userId: Int
+)
 
-data class Group(val id: Int, val name: String)
-data class Subject(val id: Int, val name: String)
-data class Teacher(val id: Int, val name: String)
+
+

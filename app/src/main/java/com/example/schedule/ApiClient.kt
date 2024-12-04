@@ -32,9 +32,11 @@ object ApiClient {
     val userService: UserService by lazy {
         retrofit.create(UserService::class.java)
     }
-
-    // Инициализация в ApiClient
     val scheduleService: ScheduleService by lazy {
         retrofit.create(ScheduleService::class.java)
     }
+    val groupService: GroupService by lazy {
+        retrofit.create(GroupService::class.java)
+    }
+
 }
