@@ -2,9 +2,9 @@ package com.example.schedule
 
 data class Schedule(
     val id: Int,
-    val groupName: String,   // Изменено на groupName
-    val subjectName: String, // Изменено на subjectName
-    val teacherFIO: String,  // Изменено на teacherFIO
+    val groupName: String,
+    val subjectName: String,
+    val teacherFIO: String,
     val weekDay: String,
     val studyWeekId: Int,
     val scheludeNumber: Int,

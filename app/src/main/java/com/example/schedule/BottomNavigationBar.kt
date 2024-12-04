@@ -35,7 +35,7 @@ fun BottomNavigationBar(
         // Новый элемент для общего расписания
         NavigationBarItem(
             icon = { Icon(Icons.Default.CalendarToday, contentDescription = "Общее расписание") },
-            label = { Text("Общее расписание") },
+            label = { Text("Расписание") },
             selected = selectedTab == 3,
             onClick = { onTabSelected(3) }
         )

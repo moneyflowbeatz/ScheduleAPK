@@ -23,6 +23,7 @@ import java.util.*
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun ScheduleScreen(token: String) {
+
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     val schedules = remember { mutableStateListOf<Schedule>() }
@@ -30,7 +31,6 @@ fun ScheduleScreen(token: String) {
     val currentDate = LocalDate.now()
     val currentTime = LocalTime.now()
 
-    // Загрузка данных с API
     LaunchedEffect(Unit) {
         try {
             val response = scheduleService.getSchedules(token)
@@ -39,13 +39,11 @@ fun ScheduleScreen(token: String) {
                     schedules.clear()
                     schedules.addAll(it)
 
-                    // Фильтрация по текущему дню
                     val filteredSchedules = schedules.filter { it.weekDay == currentDay }
                     schedules.clear()
                     if (filteredSchedules.isNotEmpty()) {
                         schedules.addAll(filteredSchedules)
                     } else {
-                        // Если нет расписания на текущий день, выводим понедельник
                         schedules.addAll(it.filter { it.weekDay == "Понедельник" })
                     }
                 }
@@ -57,21 +55,17 @@ fun ScheduleScreen(token: String) {
         }
     }
 
-    // Отображение текущего дня недели и даты
     Column(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
         Text("Сегодня: $currentDay, ${currentDate.format(DateTimeFormatter.ofPattern("dd MMMM yyyy"))}", style = MaterialTheme.typography.bodyLarge)
 
-        // Количество пар
         val totalClasses = schedules.distinctBy { it.scheludeNumber }.size
         Text("Количество пар: $totalClasses", style = MaterialTheme.typography.bodyMedium)
 
-        // Следующая пара
         val nextClass = schedules.filter { parseTime(it.scheduleStart).isAfter(currentTime) }.minByOrNull { parseTime(it.scheduleStart) }
         nextClass?.let {
             Text("Следующая пара: ${it.subjectName ?: "Неизвестный предмет"} в ${parseTime(it.scheduleStart)}", style = MaterialTheme.typography.bodyMedium)
         } ?: Text("Следующая пара: нет", style = MaterialTheme.typography.bodyMedium)
 
-        // Время до следующей пары
         nextClass?.let {
             val timeUntilNextClass = java.time.Duration.between(currentTime, parseTime(it.scheduleStart)).toMinutes()
             Text("До следующей пары: $timeUntilNextClass минут", style = MaterialTheme.typography.bodyMedium)
@@ -79,7 +73,6 @@ fun ScheduleScreen(token: String) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Отображение списка расписания
         LazyColumn(modifier = Modifier.fillMaxSize()) {
             items(schedules.sortedBy { parseTime(it.scheduleStart) }) { schedule ->
                 ScheduleRow(schedule)
@@ -88,10 +81,9 @@ fun ScheduleScreen(token: String) {
     }
 }
 
-// Функция для получения текущего дня недели на русском языке
 @RequiresApi(Build.VERSION_CODES.O)
 fun getCurrentDay(): String {
-    val dayOfWeek = LocalDate.now().dayOfWeek // Получаем текущий день недели
+    val dayOfWeek = LocalDate.now().dayOfWeek
     return when (dayOfWeek) {
         DayOfWeek.MONDAY -> "Понедельник"
         DayOfWeek.TUESDAY -> "Вторник"
@@ -103,7 +95,6 @@ fun getCurrentDay(): String {
     }
 }
 
-// Функция для преобразования строки времени в LocalTime
 @RequiresApi(Build.VERSION_CODES.O)
 fun parseTime(timeString: String): LocalTime {
     return LocalTime.parse(timeString)

@@ -22,12 +22,12 @@ fun LoginScreen(onLoginSuccess: (String) -> Unit) {
     val scope = rememberCoroutineScope()
 
     Column(modifier = Modifier.padding(16.dp)) {
-        Text("Login", style = MaterialTheme.typography.labelSmall)
+        Text("Вход", style = MaterialTheme.typography.labelSmall)
 
         TextField(
             value = username.value,
             onValueChange = { username.value = it },
-            label = { Text("Username") },
+            label = { Text("Логин") },
             modifier = Modifier.fillMaxWidth(),
             keyboardOptions = KeyboardOptions.Default.copy(
                 imeAction = ImeAction.Next
@@ -39,7 +39,7 @@ fun LoginScreen(onLoginSuccess: (String) -> Unit) {
         TextField(
             value = password.value,
             onValueChange = { password.value = it },
-            label = { Text("Password") },
+            label = { Text("Пароль") },
             modifier = Modifier.fillMaxWidth(),
             visualTransformation = PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions.Default.copy(
@@ -62,19 +62,19 @@ fun LoginScreen(onLoginSuccess: (String) -> Unit) {
                             if (token != null) {
                                 onLoginSuccess(token)  // Передаем токен через callback
                             } else {
-                                Toast.makeText(context, "Failed to get token", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(context, "Не удалось получить токен", Toast.LENGTH_SHORT).show()
                             }
                         } else {
-                            Toast.makeText(context, "Login failed", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, "Неверный логин или пароль", Toast.LENGTH_SHORT).show()
                         }
                     } catch (e: Exception) {
-                        Toast.makeText(context, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "Ошибка: ${e.message}", Toast.LENGTH_SHORT).show()
                     }
                 }
             },
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Log in")
+            Text("Войти")
         }
     }
 }

@@ -1,4 +1,3 @@
-// GeneralScheduleScreen.kt
 package com.example.schedule
 
 import androidx.compose.foundation.layout.*
@@ -17,14 +16,15 @@ fun GeneralScheduleScreen(
     onSearchTextChange: (String) -> Unit
 ) {
     Column(
-        modifier = Modifier.fillMaxSize().padding(16.dp)
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp)
     ) {
-        // Поле для поиска
         TextField(
             value = searchText,
             onValueChange = {
                 onSearchTextChange(it)
-                onSearch(it) // Вызов поиска при изменении текста
+                onSearch(it)
             },
             label = { Text("Поиск по дисциплине, кабинету, группе, преподавателю") },
             modifier = Modifier.fillMaxWidth()
@@ -32,25 +32,42 @@ fun GeneralScheduleScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Выводим отфильтрованное расписание
         LazyColumn {
             items(scheduleData) { schedule ->
-                ScheduleItem(schedule)
+                ScheduleCard(schedule)
             }
         }
     }
 }
 
-
 @Composable
-fun ScheduleItem(schedule: Schedule) {
-    Column(
-        modifier = Modifier.fillMaxWidth().padding(8.dp)
+fun ScheduleCard(schedule: Schedule) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 8.dp),
+        elevation = CardDefaults.elevatedCardElevation(defaultElevation = 8.dp)
     ) {
-        Text("Дисциплина: ${schedule.subjectName}")
-        Text("Кабинет: ${schedule.scheludeNumber}") // Если кабинет - это номер расписания
-        Text("Группа: ${schedule.groupName}")
-        Text("Преподаватель: ${schedule.teacherFIO}")
-        Spacer(modifier = Modifier.height(8.dp))
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+        ) {
+            Text(
+                text = "Расписание на ${schedule.weekDay}",
+                style = MaterialTheme.typography.titleMedium,
+                modifier = Modifier.padding(bottom = 8.dp)
+            )
+
+            Text("Дисциплина: ${schedule.subjectName}")
+            Text("Кабинет: ${schedule.scheludeNumber}")
+            Text("Группа: ${schedule.groupName}")
+            Text("Преподаватель: ${schedule.teacherFIO}")
+
+            Spacer(modifier = Modifier.height(8.dp))
+        }
     }
 }
+
+
+

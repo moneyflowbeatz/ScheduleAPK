@@ -35,7 +35,7 @@ fun <T> DropdownMenu(
         ) {
             items.forEach { item ->
                 DropdownMenuItem(
-                    text = { Text("Option 1") }, // Обязательный параметр text
+                    text = { Text("Option 1") },
                     onClick = { /* Handle click */ }
                 )
             }
