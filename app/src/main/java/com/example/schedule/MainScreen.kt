@@ -26,6 +26,8 @@ fun MainScreen(token: String) {
                 0 -> ScheduleScreen(token = token)  // Главная (расписание на текущий день)
                 1 -> CalendarScreen(token = token) // Календарь
                 2 -> ProfileScreen(token = token)  // Профиль
+                3 -> GeneralScheduleScreenWithData(token)
+
             }
         }
     }

@@ -11,6 +11,7 @@ interface ScheduleService {
     suspend fun getSchedules(
         @Header("Authorization") token: String  // Добавляем токен в заголовок
     ): Response<List<Schedule>>
+
 }
 
 // Инициализация в ApiClient

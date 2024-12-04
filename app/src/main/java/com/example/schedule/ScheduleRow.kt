@@ -23,15 +23,15 @@ fun ScheduleRow(schedule: Schedule) {
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(
-                text = "Группа: ${schedule.groupId}",
+                text = "Группа: ${schedule.groupName}",
                 style = MaterialTheme.typography.labelLarge
             )
             Text(
-                text = "Предмет: ${schedule.subject ?: "Не указан"}",
+                text = "Предмет: ${schedule.subjectName ?: "Не указан"}",
                 style = MaterialTheme.typography.bodyLarge
             )
             Text(
-                text = "Преподаватель: ${schedule.teacher ?: "Не указан"}",
+                text = "Преподаватель: ${schedule.teacherFIO ?: "Не указан"}",
                 style = MaterialTheme.typography.bodyLarge
             )
             Text(
@@ -43,7 +43,7 @@ fun ScheduleRow(schedule: Schedule) {
                 style = MaterialTheme.typography.bodyLarge
             )
             Text(
-                text = "Номер пары: ${schedule.scheduleNumber}",
+                text = "Номер пары: ${schedule.scheludeNumber}",
                 style = MaterialTheme.typography.bodyLarge
             )
         }

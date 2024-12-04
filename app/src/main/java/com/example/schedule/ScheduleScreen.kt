@@ -62,13 +62,13 @@ fun ScheduleScreen(token: String) {
         Text("Сегодня: $currentDay, ${currentDate.format(DateTimeFormatter.ofPattern("dd MMMM yyyy"))}", style = MaterialTheme.typography.bodyLarge)
 
         // Количество пар
-        val totalClasses = schedules.distinctBy { it.scheduleNumber }.size
+        val totalClasses = schedules.distinctBy { it.scheludeNumber }.size
         Text("Количество пар: $totalClasses", style = MaterialTheme.typography.bodyMedium)
 
         // Следующая пара
         val nextClass = schedules.filter { parseTime(it.scheduleStart).isAfter(currentTime) }.minByOrNull { parseTime(it.scheduleStart) }
         nextClass?.let {
-            Text("Следующая пара: ${it.subject ?: "Неизвестный предмет"} в ${parseTime(it.scheduleStart)}", style = MaterialTheme.typography.bodyMedium)
+            Text("Следующая пара: ${it.subjectName ?: "Неизвестный предмет"} в ${parseTime(it.scheduleStart)}", style = MaterialTheme.typography.bodyMedium)
         } ?: Text("Следующая пара: нет", style = MaterialTheme.typography.bodyMedium)
 
         // Время до следующей пары
