@@ -13,7 +13,4 @@ interface ScheduleService {
     ): Response<List<Schedule>>
 }
 
-// Инициализация в ApiClient
-val scheduleService: ScheduleService by lazy {
-    retrofit.create(ScheduleService::class.java)
-}
+
