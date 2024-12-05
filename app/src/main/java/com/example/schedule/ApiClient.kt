@@ -7,14 +7,14 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object ApiClient {
-    private const val BASE_URL = "https://10.0.2.2:5058/"
+    private const val BASE_URL = "https://192.168.64.22:5058/"
 
     private val client = OkHttpClient.Builder()
-        .connectTimeout(30, TimeUnit.SECONDS)  // Тайм-аут подключения
-        .readTimeout(30, TimeUnit.SECONDS)     // Тайм-аут чтения
-        .writeTimeout(30, TimeUnit.SECONDS)    // Тайм-аут записи
-        .sslSocketFactory(UnsafeOkHttpClient.getUnsafeSslSocketFactory(), UnsafeOkHttpClient.getUnsafeTrustManager())  // Используем небезопасное соединение
-        .hostnameVerifier { _, _ -> true }     // Отключаем проверку имени хоста
+        .connectTimeout(30, TimeUnit.SECONDS)
+        .readTimeout(30, TimeUnit.SECONDS)
+        .writeTimeout(30, TimeUnit.SECONDS)
+        .sslSocketFactory(UnsafeOkHttpClient.getUnsafeSslSocketFactory(), UnsafeOkHttpClient.getUnsafeTrustManager())
+        .hostnameVerifier { _, _ -> true }
         .build()
 
     private val gson = GsonBuilder()

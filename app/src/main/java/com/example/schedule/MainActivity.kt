@@ -15,13 +15,15 @@ class MainActivity : AppCompatActivity() {
         setContent {
             ScheduleTheme {
                 var token by remember { mutableStateOf("") }
+                var roleId by remember { mutableStateOf("") }
 
                 if (token.isEmpty()) {
-                    LoginScreen { newToken ->
-                        token = newToken  // Сохраняем токен
+                    LoginScreen { newToken, newRoleId ->
+                        token = newToken
+                        roleId = newRoleId
                     }
                 } else {
-                    MainScreen(token = token)  // Передаем токен
+                    MainScreen(token = token)
                 }
             }
         }
