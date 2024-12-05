@@ -4,6 +4,7 @@ import android.os.Build
 import android.widget.CalendarView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -11,6 +12,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.compose.ui.unit.dp
@@ -29,9 +31,11 @@ fun CalendarScreen(token: String) {
     val coroutineScope = rememberCoroutineScope()
 
     Column(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
-        // Календарь
         AndroidView(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color(0x80000000))
+                .padding(8.dp),
             factory = { CalendarView(context) },
             update = { calendarView ->
                 calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
@@ -49,7 +53,6 @@ fun CalendarScreen(token: String) {
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        // Загрузка расписания для выбранной даты
         LaunchedEffect(selectedDate.value) {
             coroutineScope.launch {
                 try {
@@ -66,7 +69,6 @@ fun CalendarScreen(token: String) {
             }
         }
 
-        // Вывод расписания
         LazyColumn(modifier = Modifier.fillMaxSize()) {
             items(schedules) { schedule ->
                 ScheduleRow(schedule)
@@ -74,6 +76,7 @@ fun CalendarScreen(token: String) {
         }
     }
 }
+
 
 @RequiresApi(Build.VERSION_CODES.O)
 fun getDayOfWeek(date: LocalDate): String {

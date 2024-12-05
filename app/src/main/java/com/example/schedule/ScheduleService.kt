@@ -9,8 +9,11 @@ import retrofit2.http.Header
 interface ScheduleService {
     @GET("Schedule")
     suspend fun getSchedules(
-        @Header("Authorization") token: String  // Добавляем токен в заголовок
+        @Header("Authorization") token: String
     ): Response<List<Schedule>>
+
 }
 
-
+val scheduleService: ScheduleService by lazy {
+    retrofit.create(ScheduleService::class.java)
+}

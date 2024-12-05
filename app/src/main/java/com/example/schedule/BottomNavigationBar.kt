@@ -1,3 +1,4 @@
+// BottomNavigationBar.kt
 package com.example.schedule
 
 import androidx.compose.material.icons.Icons
@@ -30,6 +31,13 @@ fun BottomNavigationBar(
             label = { Text("Профиль") },
             selected = selectedTab == 2,
             onClick = { onTabSelected(2) }
+        )
+        // Новый элемент для общего расписания
+        NavigationBarItem(
+            icon = { Icon(Icons.Default.CalendarToday, contentDescription = "Общее расписание") },
+            label = { Text("Расписание") },
+            selected = selectedTab == 3,
+            onClick = { onTabSelected(3) }
         )
     }
 }
