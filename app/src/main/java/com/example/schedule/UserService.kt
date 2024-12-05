@@ -13,7 +13,7 @@ interface UserService {
     suspend fun loginUser(
         @Query("Login") login: String,
         @Query("Password") password: String
-    ): Response<String>
+    ): Response<JsonResponse>
 
     @GET("User")
     suspend fun getUsers(): List<User>
@@ -21,35 +21,7 @@ interface UserService {
     @POST("User")
     suspend fun createUser(@Body request: CreateUserRequest): User
 
-    @GET("Schedule")
-    suspend fun getSchedule(@Body request: ScheduleRequest): Response<List<ScheduleResponse>>
 
-    data class ScheduleRequest(
-        val groupId: Int,
-        val subjectId: Int,
-        val teacherId: Int,
-        val weekDay: String,
-        val studyWeekId: Int,
-        val scheludeNumber: Int
-    )
-
-    data class ScheduleResponse(
-        val groupName: String,
-        val subjectName: String,
-        val teacherName: String,
-        val weekDay: String,
-        val scheduleNumber: Int,
-        val time: String
-    )
-
-    @GET("Groups")
-    suspend fun getGroups(): Response<List<Group>>
-
-    @GET("Subjects")
-    suspend fun getSubjects(): Response<List<Subject>>
-
-    @GET("Teachers")
-    suspend fun getTeachers(): Response<List<Teacher>>
 
 
 }

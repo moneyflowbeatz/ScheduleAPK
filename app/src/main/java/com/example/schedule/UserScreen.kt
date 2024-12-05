@@ -40,7 +40,7 @@ fun UserScreen() {
                 try {
                     userService.createUser(CreateUserRequest(login, password))
                     message = "User created successfully"
-                    users = userService.getUsers() // Получаем всех пользователей
+                    users = userService.getUsers()
                 } catch (e: Exception) {
                     message = "Error: ${e.message}"
                 }
@@ -52,7 +52,7 @@ fun UserScreen() {
         Button(onClick = {
             scope.launch {
                 try {
-                    users = userService.getUsers() // Получаем всех пользователей
+                    users = userService.getUsers()
                     message = "Users fetched successfully"
                 } catch (e: Exception) {
                     message = "Error: ${e.message}"

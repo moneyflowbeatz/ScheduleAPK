@@ -12,7 +12,6 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun ProfileScreen(token: String) {
-    // Состояние для чекбокса (по умолчанию включен)
     var isSubscribed by remember { mutableStateOf(true) }
 
     Column(

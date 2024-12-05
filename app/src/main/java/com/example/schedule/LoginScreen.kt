@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 import retrofit2.Response
 
 @Composable
-fun LoginScreen(onLoginSuccess: (String) -> Unit) {
+fun LoginScreen(onLoginSuccess: (String, String) -> Unit) {
     val username = remember { mutableStateOf("") }
     val password = remember { mutableStateOf("") }
     val context = LocalContext.current
@@ -53,14 +53,17 @@ fun LoginScreen(onLoginSuccess: (String) -> Unit) {
             onClick = {
                 scope.launch {
                     try {
-                        val loginResponse: Response<String> = ApiClient.userService.loginUser(
+                        val loginResponse: Response<JsonResponse> = ApiClient.userService.loginUser(
                             login = username.value,
                             password = password.value
                         )
                         if (loginResponse.isSuccessful) {
                             val token = loginResponse.body()
+                            val roleId = loginResponse.body()
                             if (token != null) {
-                                onLoginSuccess(token)  // Передаем токен через callback
+                                if (roleId != null) {
+                                    onLoginSuccess(token.toString(), roleId.toString())
+                                }
                             } else {
                                 Toast.makeText(context, "Не удалось получить токен", Toast.LENGTH_SHORT).show()
                             }
@@ -81,11 +84,4 @@ fun LoginScreen(onLoginSuccess: (String) -> Unit) {
 
 
 
-// Асинхронная функция для выполнения логина
-suspend fun loginUser(username: String, password: String): Response<String>? {
-    return try {
-        ApiClient.userService.loginUser(username, password)
-    } catch (e: Exception) {
-        null // Вернем null в случае ошибки
-    }
-}
+
